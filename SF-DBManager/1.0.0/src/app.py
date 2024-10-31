@@ -49,16 +49,16 @@ class DbManager(AppBase):
             res2 = res
         except:
             res2 = {}
-            res = str(res).replace("{", "\t")
-            res = str(res).replace("}", "\t")
-            res = str(res).replace('"', "")
+            res1 = str(res).replace("{", "\t")
+            res1 = str(res1).replace("}", "\t")
+            res1 = str(res1).replace('"', "")
             res2["res1message"] = str(res)
         if res2:
             return (json.dumps(res2))
         elif res:
             return(json.dumps(res))
         else:
-            suc = "Success?" + str(res) + str(res2)
+            suc = "Success?" + str(res) + str(res2) + str(res1)
             return(str(suc))
 if __name__ == "__main__":
     DbManager.run()
