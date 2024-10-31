@@ -45,14 +45,15 @@ class DbManager(AppBase):
         cursor.close()
         self.db_connection.close()
         try:
-            res2 = json.dumps(res)
+            res1 = json.dumps(res)
+            res2 = res
         except:
             res2 = {}
             res = str(res).replace("{", "\t")
             res = str(res).replace("}", "\t")
             res = str(res).replace('"', "")
             res2["res1message"] = str(res)
-        return (res2)     
+        return (json.dumps(res2))
 
 if __name__ == "__main__":
     DbManager.run()
