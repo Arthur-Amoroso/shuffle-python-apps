@@ -31,34 +31,13 @@ class DbManager(AppBase):
         return cnx                               
 
     def query_mysql_database(self, username, password, host, port, database_name, query):
-        
         self.db_connection = self.connection(username, password, host, port, database_name) 
         cursor = self.db_connection.cursor(dictionary=True)
-        try:
-            cursor.execute(str(query))
-        except:
-            res = {}
-            res["ERROR"] = "erro na syntaxe da query"
-            res["query"] = str(query)
+        cursor.execute(str(query))
         print("Query executed successfully")
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
-        try:
-            res1 = json.dumps(res)
-            res2 = res
-        except:
-            res2 = {}
-            res1 = str(res).replace("{", "\t")
-            res1 = str(res1).replace("}", "\t")
-            res1 = str(res1).replace('"', "")
-            res2["res1message"] = str(res)
-        if res2:
-            return (json.dumps(res2))
-        elif res:
-            return(json.dumps(res))
-        else:
-            suc = "Success?" + str(res) + str(res2) + str(res1)
-            return(str(suc))
+        return(res)
 if __name__ == "__main__":
     DbManager.run()
