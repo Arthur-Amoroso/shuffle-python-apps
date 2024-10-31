@@ -34,13 +34,26 @@ class DbManager(AppBase):
         
         self.db_connection = self.connection(username, password, host, port, database_name) 
         cursor = self.db_connection.cursor(dictionary=True)
-        cursor.execute(str(query))
+        try:
+            cursor.execute(str(query))
+        except:
+            res = {}
+            res["ERROR"] = "erro na syntaxe da query"
+            res["query"] = str(query)
         print("Query executed successfully")
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
         res[0]["query"] = str(query)
-        return (json.dumps(res))     
+        try:
+            res2 = json.dumps(res)
+        except:
+            res2 = {}
+            res = str(res).replace("{", "\t")
+            res = str(res).replace("}", "\t")
+            res = str(res).replace('"', "")
+            res2["res1message"] = str(res)
+        return (json.dumps(res2))     
 
 if __name__ == "__main__":
     DbManager.run()
