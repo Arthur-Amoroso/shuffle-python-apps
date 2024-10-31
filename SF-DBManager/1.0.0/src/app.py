@@ -23,24 +23,15 @@ class DbManager(AppBase):
         super().__init__(redis, logger, console_logger)
 
     def connection(self, username, password, host, port, database_name):
-        cnx = connection.MySQLConnection(user=username, password= password,
-                                        host= host,
-                                        port=port,
-                                        database= database_name)
+        cnx = connection.MySQLConnection(user=username, password= password, host= host, port=port, database= database_name)
         print(f"Connection successful, User -->{username} ")                                
         return cnx                               
 
     def query_mysql_database(self, username, password, host, port, database_name, query):
-        
         self.db_connection = self.connection(username, password, host, port, database_name) 
         cursor = self.db_connection.cursor(dictionary=True)
-
-        print(query)
-
         cursor.execute(str(query))
-
         print("Query executed successfully")
-
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
