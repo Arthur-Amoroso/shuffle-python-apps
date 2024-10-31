@@ -44,7 +44,6 @@ class DbManager(AppBase):
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
-        res[0]["query"] = str(query)
         try:
             res2 = json.dumps(res)
         except:
