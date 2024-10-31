@@ -30,12 +30,13 @@ class DbManager(AppBase):
     def query_mysql_database(self, username, password, host, port, database_name, query):
         self.db_connection = self.connection(username, password, host, port, database_name) 
         cursor = self.db_connection.cursor(dictionary=True)
-        print(type(query), query)
         cursor.execute(str(query))
         print("Query executed successfully")
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
+        res['type_query'] = type(query)
+        res['query_data'] = query
         return (json.dumps(res))     
 
 if __name__ == "__main__":
