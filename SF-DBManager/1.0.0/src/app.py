@@ -55,8 +55,10 @@ class DbManager(AppBase):
             res2["res1message"] = str(res)
         if res2:
             return (json.dumps(res2))
-        else:
+        elif res:
             return(json.dumps(res))
-
+        else:
+            suc = "Success?" + str(res) + str(res2)
+            return(str(suc))
 if __name__ == "__main__":
     DbManager.run()
