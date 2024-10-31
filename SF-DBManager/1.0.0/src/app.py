@@ -30,6 +30,7 @@ class DbManager(AppBase):
     def query_mysql_database(self, username, password, host, port, database_name, query):
         self.db_connection = self.connection(username, password, host, port, database_name) 
         cursor = self.db_connection.cursor(dictionary=True)
+        print(type(query), query)
         cursor.execute(str(query))
         print("Query executed successfully")
         res = cursor.fetchall()
