@@ -53,7 +53,10 @@ class DbManager(AppBase):
             res = str(res).replace("}", "\t")
             res = str(res).replace('"', "")
             res2["res1message"] = str(res)
-        return (json.dumps(res2))
+        if res2:
+            return (json.dumps(res2))
+        else:
+            return(json.dumps(res))
 
 if __name__ == "__main__":
     DbManager.run()
