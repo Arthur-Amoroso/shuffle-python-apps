@@ -39,6 +39,7 @@ class DbManager(AppBase):
         res = cursor.fetchall()
         cursor.close()
         self.db_connection.close()
+        res["query"] = str(query)
         return (json.dumps(res))     
 
 if __name__ == "__main__":
